@@ -2,15 +2,25 @@ const express = require("express");
 const app = express();
 const db = require("./config/keys").mongoURI;
 const mongoose = require("mongoose");
+const users = require("./routes/api/users");
+const tweets = require("./routes/api/tweets");
+const bodyParser = require("body-parser");
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 mongoose
   .connect(db, { useNewUrlParser: true })
   .then(() => console.log("Connected to MongoDB successfully"))
   .catch(err => console.log(err));
 
+//  "/" get request on the root route
 app.get("/", (req, res) => res.send("Goodbye World"));
 
+// using the users and tweets routes
+app.use("/api/users", users);
+app.use("/api/tweets", tweets);
 
 
+// if we are in production use that port variable, if not use 5000
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Server is running on port ${port}`));
