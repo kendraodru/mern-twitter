@@ -5,17 +5,29 @@ const mongoose = require("mongoose");
 const users = require("./routes/api/users");
 const tweets = require("./routes/api/tweets");
 const bodyParser = require("body-parser");
+const User = require('./models/User')
+
+mongoose
+.connect(db, { useNewUrlParser: true })
+.then(() => console.log("Connected to MongoDB successfully"))
+.catch(err => console.log(err));
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-mongoose
-  .connect(db, { useNewUrlParser: true })
-  .then(() => console.log("Connected to MongoDB successfully"))
-  .catch(err => console.log(err));
-
 //  "/" get request on the root route
-app.get("/", (req, res) => res.send("Goodbye World"));
+app.get("/", (req, res) => {
+  const user = new User({
+    handle:'jim',
+    email: 'jim@jim.com',
+    password: 'password',
+    password2: 'password'
+  })
 
+  user.save()
+
+  res.send("Goodbye World");
+})
 // using the users and tweets routes
 app.use("/api/users", users);
 app.use("/api/tweets", tweets);
