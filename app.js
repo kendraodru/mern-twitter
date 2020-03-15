@@ -5,7 +5,9 @@ const mongoose = require("mongoose");
 const users = require("./routes/api/users");
 const tweets = require("./routes/api/tweets");
 const bodyParser = require("body-parser");
-const User = require('./models/User')
+const User = require('./models/User');
+const passport = require('passport');
+
 
 mongoose
 .connect(db, { useNewUrlParser: true })
@@ -16,18 +18,24 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 //  "/" get request on the root route
-app.get("/", (req, res) => {
-  const user = new User({
-    handle:'jim',
-    email: 'jim@jim.com',
-    password: 'password',
-    password2: 'password'
-  })
+// app.get("/", (req, res) => {
+//   const user = new User({
+//     handle:'jim',
+//     email: 'jim@jim.com',
+//     password: 'password',
+//     password2: 'password'
+//   })
 
-  user.save()
+//   user.save()
 
-  res.send("Goodbye World");
-})
+//   res.send("Goodbye World");
+// })
+
+// app.get("/", (req, res) => res.send("Hello World!!"));
+
+app.use(passport.initialize());
+require('./config/passport')(passport);
+
 // using the users and tweets routes
 app.use("/api/users", users);
 app.use("/api/tweets", tweets);

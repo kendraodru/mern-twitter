@@ -1,9 +1,11 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
 const passport = require('passport');
-const validateTweetInput = require('../../validation/tweets')
-const Tweet = require('../../models/Tweet');
-// req request, res result
+
+const Tweet = require('../../models/Tweet')
+const validateTweetInput = require('../../validation/tweets');
+
 router.get("/test", (req, res) => res.json({ msg: "This is the tweets route" }));
 
 router.get("/", (req,res) =>{
@@ -21,7 +23,7 @@ router.get('/user/:user_id', (req, res)=>{
     .catch(err=> res.status(400).json(err));
 })
 
-router.get('./:id', (req, res)=>{
+router.get('/:id', (req, res)=>{
   Tweet
     .findById(req.params.id)
     .then(tweet => res.json(tweet))
@@ -36,14 +38,17 @@ router.post('/',
 
     if (!isValid) {
       return res.status(400).json(errors);
+      // return res.json('hello')
     }
 
     const newTweet = new Tweet({
-      text: req.body.text,
-      user: req.user.id
+      user: req.user.id,
+      text: req.body.text
     });
-
-    newTweet.save().then(tweet => res.json(tweet));
+    // console.log(newTweet)
+    newTweet
+      .save()
+      .then(tweet => res.json(tweet));
   }
 );
 
