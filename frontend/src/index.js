@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
     store = configureStore(preloadedState);
 
     const currentTime = Date.now() / 1000;
+    // divide by 1000 to get it into secs not ms
 
     // If the user's token has expired
     if (decodedUser.exp < currentTime) {
@@ -49,6 +50,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   // Render our root component and pass in the store as a prop
   const root = document.getElementById('root');
+
+
+  window.getState = store.getState
 
   ReactDOM.render(<Root store={store} />, root);
 });
