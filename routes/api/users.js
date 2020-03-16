@@ -5,6 +5,7 @@ const bcrypt = require('bcryptjs');
 const User = require("../../models/User");
 const keys = require('../../config/keys');
 const jwt = require('jsonwebtoken');
+// question2:what is the jwt, how does it connect. is it like session token
 const passport = require('passport');
 const validateRegisterInput = require('../../validation/register');
 const validateLoginInput = require("../../validation/login");
@@ -14,7 +15,7 @@ router.get("/test", (req, res) => res.json({ msg: "This is the users route" }));
 // router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
 //   res.json({ msg: 'Success' });
 // })
-
+// question3: what is going on on this passport auth??? session: false?
 router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
   res.json({
     id: req.user.id,

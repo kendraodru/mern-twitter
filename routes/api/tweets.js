@@ -30,7 +30,7 @@ router.get('/:id', (req, res)=>{
     .catch(err => res.status(400).json(err));
 })
 
-
+// question4:how is this passport being used in the actual function?
 router.post('/',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {

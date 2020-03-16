@@ -1,5 +1,6 @@
 const Validator = require("validator");
 const validText = require("./valid-text");
+// validator is something built in that we pull, validText is what we created
 
 module.exports = function validateLoginInput(data) {
   let errors = {};

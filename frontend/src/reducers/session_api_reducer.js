@@ -8,7 +8,7 @@ const initialState = {
   isAuthenticated: false,
   user: {}
 };
-
+// question6: why do we need to deconstruct the state
 export default function(state = initialState, action) {
   switch (action.type) {
     case RECEIVE_CURRENT_USER:

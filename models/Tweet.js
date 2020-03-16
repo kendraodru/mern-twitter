@@ -17,3 +17,7 @@ const TweetSchema = new Schema({
 });
 
 module.exports = Tweet = mongoose.model("tweet", TweetSchema);
+                                  // takes in the string of table name, followed by schema
+
+// question1: the users is our association, the ref is refering to the string table name we assigned it?
+//  Schema.Types.ObjectId I'm assuming is just the Id of that pojo, kinda like the id of a row
